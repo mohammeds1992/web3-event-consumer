@@ -15,13 +15,12 @@ middleware(app)
 routes(app)
 
 app.use((req, res, next) => {
-    next(createError(404));
+    res.redirect('http://' + process.env.HOST + '/v1/events')
 })
 
 app.use(
     (error, req, res, next) => {
         logger.error(error.message);
-
         res.statusCode = error.statusCode;
         res.json({
             message: error.message
