@@ -1,6 +1,9 @@
 const dbConfig = require('../configuration/db.js');
 
-const {Sequelize, DataTypes} = require('sequelize');
+const {
+    Sequelize,
+    DataTypes
+} = require('sequelize');
 
 
 const Event = require('./event')
@@ -23,12 +26,12 @@ const sequelize = new Sequelize(
 )
 
 sequelize.authenticate()
-.then(() => {
-    console.log('connected..')
-})
-.catch(err => {
-    console.log('Error'+ err)
-})
+    .then(() => {
+        console.log('connected..')
+    })
+    .catch(err => {
+        console.log('Error' + err)
+    })
 
 const db = {}
 
@@ -36,11 +39,14 @@ db.Sequelize = Sequelize
 db.sequelize = sequelize
 
 db.events = require('./event.js')(sequelize, DataTypes)
+db.blocknumber = require('./blocknumber.js')(sequelize, DataTypes)
 
-db.sequelize.sync({ force: false })
-.then(async () => {
-    console.log('yes re-sync done!')
-})
+db.sequelize.sync({
+        force: false
+    })
+    .then(async () => {
+        console.log('yes re-sync done!')
+    })
 
 
 module.exports = db

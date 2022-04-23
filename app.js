@@ -18,15 +18,14 @@ app.use((req, res, next) => {
     next(createError(404));
 })
 
-
 app.use(
-  (error, req, res, next) => { 
-  logger.error(error.message);
+    (error, req, res, next) => {
+        logger.error(error.message);
 
-  res.statusCode = error.statusCode;
-  res.json({
-    message: error.message
-  });
-});
+        res.statusCode = error.statusCode;
+        res.json({
+            message: error.message
+        });
+    });
 
 module.exports = app;

@@ -10,7 +10,6 @@ module.exports.getEvents = async (req, res, next) => {
         size
     } = req.query;
 
-
     if (!page) {
         page = 1;
     }
@@ -19,20 +18,14 @@ module.exports.getEvents = async (req, res, next) => {
         size = 10;
     }
 
-    if (isNaN(page)) {
-        next(createError(400));
+    if (isNaN(page) || page <= 0) {
+        next(createError(400, 'page number should be a valid positive integer'));
     }
 
-    if (isNaN(size)) {
-        next(createError(400));
+    if (isNaN(size) || size <= 0) {
+        next(createError(400, 'page size should be a valid positive integer'));
     }
 
-    /*for(let i = 0; i < 25; i++) {
-        const event = {
-            event: {"key1": "value1", "key2": "value2"}
-        }
-        await Event.create(event)
-    }*/
     try {
         let events = await Event.findAndCountAll({
             offset: parseInt((page - 1) * size),
@@ -43,7 +36,6 @@ module.exports.getEvents = async (req, res, next) => {
         });
         res.status(200).send(events)
     } catch (err) {
-        next(createError(500));
+        next(createError(500, 'internal server'));
     }
-
 }

@@ -2,5 +2,7 @@ const morgan = require('morgan')
 const logger = require('../configuration/logger')
 
 module.exports = (app) => {
-	 app.use(morgan('dev', {stream: logger.stream }));
+    app.use(morgan('dev', {
+        stream: logger.stream
+    }));
 };
