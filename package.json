@@ -1,0 +1,46 @@
+{
+  "name": "web3_event_consumer",
+  "version": "1.0.0",
+  "description": "This is Web3 project which consumes Addition events from a simple Smart Contract.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mohammeds1992/web3-event-consumer.git"
+  },
+  "keywords": [
+    "web3",
+    "event-consumer",
+    "smart-contract",
+    "infura",
+    "ethereum",
+    "node",
+    "backend",
+    "rest",
+    "api"
+  ],
+  "author": "Shoaib Mohammed",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mohammeds1992/web3-event-consumer/issues"
+  },
+  "homepage": "https://github.com/mohammeds1992/web3-event-consumer#readme",
+  "dependencies": {
+    "@hapi/joi": "^17.1.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "http-errors": "^2.0.0",
+    "morgan": "^1.10.0",
+    "mysql2": "^2.3.3",
+    "sequelize": "^6.19.0",
+    "web3": "^1.7.3",
+    "winston": "^3.7.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
