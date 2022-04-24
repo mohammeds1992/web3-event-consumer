@@ -43,17 +43,17 @@ const eventHandler = async (data) => {
                 eventType: 'Addition',
                 currentBlocknumber: data['blockNumber']
             });
-            logger.info("updated  currentBlocknumber to :: " + data['blockNumber'])
+            logger.info("updated currentBlocknumber to :: " + data['blockNumber'])
         }
 
     } else {
-        logger.info("skipping the event with transactionHash :: " + data['transactionHash'])
+        logger.info("already processed, hence skipping the event with transactionHash :: " + data['transactionHash'])
     }
 }
 
 exports.consume = async function() {
     let currentBlocknumber = await getBlocknumber();
-    logger.info("currentBlocknumber ::  " + currentBlocknumber)
+    logger.info("Events consumption has started from the blocknumber :: " + currentBlocknumber)
     let options = {
         fromBlock: currentBlocknumber
     };
@@ -61,11 +61,9 @@ exports.consume = async function() {
     contract.events.Addition(options)
         .on('data',
             event => {
-                console.log(event)
                 eventHandler(event, currentBlocknumber)
             }
         )
-        .on('changed', changed => logger.info(changed))
-        .on('error', err => logger.info(err))
+        .on('error', err => logger.error("Error while listening events " + err))
         .on('connected', str => logger.info("Connected to ethereum node provider!!!"))
 }

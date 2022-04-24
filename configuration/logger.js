@@ -8,7 +8,10 @@ const infoLogger = createLogger({
         new transports.Console(),
         new transports.File({
             filename: './logs/event_consumer.log',
-            level: 'info'
+            level: 'info',
+            json: true,
+            maxsize: 5242880, //5MB
+            maxFiles: 5,
         })
     ]
 })

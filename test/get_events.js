@@ -22,7 +22,7 @@ describe('Get Events API', () => {
                 });
         });
 
-        it("It should NOT GET events", (done) => {
+        it("GET events should return 400 when page number is negative", (done) => {
             chai.request(server)
                 .get("/v1/events?page=-1")
                 .end((err, response) => {
@@ -32,7 +32,7 @@ describe('Get Events API', () => {
                 });
         });
 
-        it("It should NOT GET events", (done) => {
+        it("GET events should return 400 when page size is negative", (done) => {
             chai.request(server)
                 .get("/v1/events?size=-1")
                 .end((err, response) => {
@@ -42,7 +42,7 @@ describe('Get Events API', () => {
                 });
         });
 
-        it("It should NOT GET events", (done) => {
+        it("GET events should return 400 when page number is zero", (done) => {
             chai.request(server)
                 .get("/v1/events?page=0")
                 .end((err, response) => {
@@ -52,7 +52,7 @@ describe('Get Events API', () => {
                 });
         });
 
-        it("It should NOT GET events", (done) => {
+        it("GET events should return 400 when page size is zero", (done) => {
             chai.request(server)
                 .get("/v1/events?size=0")
                 .end((err, response) => {
@@ -62,7 +62,7 @@ describe('Get Events API', () => {
                 });
         });
 
-        it("It should NOT GET events", (done) => {
+        it("GET events should return 400 when page number is text", (done) => {
             chai.request(server)
                 .get("/v1/events?page=text")
                 .end((err, response) => {
@@ -72,7 +72,7 @@ describe('Get Events API', () => {
                 });
         });
 
-        it("It should NOT GET events", (done) => {
+        it("GET events should return 400 when page size is text", (done) => {
             chai.request(server)
                 .get("/v1/events?size=text")
                 .end((err, response) => {
@@ -82,7 +82,7 @@ describe('Get Events API', () => {
                 });
         });
 
-        it("Trying with incorrect route url", (done) => {
+        it("GET events should return 200 with html content when unknown path is encountered", (done) => {
             chai.request(server)
                 .get("/v1/events/dummy")
                 .end((err, response) => {
