@@ -5,6 +5,7 @@ const {
 
 const infoLogger = createLogger({
     transports: [
+        new transports.Console(),
         new transports.File({
             filename: './logs/event_consumer.log',
             level: 'info'

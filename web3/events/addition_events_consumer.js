@@ -5,6 +5,7 @@ const Web3 = require("web3");
 const web3 = new Web3(new Web3.providers.WebsocketProvider(process.env.NODE_PROVIDER_URL));
 const ABI = require("../../configuration/abis/additionABI")
 const contract = new web3.eth.Contract(ABI.getAdditionContractABI(), process.env.ADDITION_SMART_CONTRACT_ADDRESS);
+const logger = require('../../configuration/logger')
 
 const getBlocknumber = async () => {
     let blocknumber = await Blocknumber.findOne({
@@ -12,10 +13,12 @@ const getBlocknumber = async () => {
             eventType: 'Addition'
         }
     });
-    return blocknumber == null ? 0 : blocknumber.toJSON()['currentBlockNumber'];
+    return blocknumber == null ? 0 : blocknumber.toJSON()['currentBlocknumber'];
 }
 
 const eventHandler = async (data) => {
+
+    logger.info("received the event with transactionHash :: " + data['transactionHash'])
 
     let event = await Event.findOne({
         where: {
@@ -29,29 +32,40 @@ const eventHandler = async (data) => {
             event: data,
             eventType: 'Addition',
             transactionHash: data['transactionHash']
-        })
+        });
 
-        await Blocknumber.create({
-            eventType: 'Addition',
-            currentBlockNumber: data['blockNumber']
-        })
+        logger.info("saved the event with transactionHash :: " + data['transactionHash'])
+
+        let currentBlocknumber = await getBlocknumber();
+
+        if (data['blockNumber'] > currentBlocknumber) {
+            await Blocknumber.upsert({
+                eventType: 'Addition',
+                currentBlocknumber: data['blockNumber']
+            });
+            logger.info("updated  currentBlocknumber to :: " + data['blockNumber'])
+        }
+
     } else {
-        console.log("skipping this event")
+        logger.info("skipping the event with transactionHash :: " + data['transactionHash'])
     }
 }
 
 exports.consume = async function() {
+    let currentBlocknumber = await getBlocknumber();
+    logger.info("currentBlocknumber ::  " + currentBlocknumber)
     let options = {
-        fromBlock: await getBlocknumber()
+        fromBlock: currentBlocknumber
     };
+
     contract.events.Addition(options)
         .on('data',
             event => {
-                eventHandler(event)
-                console.log(event);
+                console.log(event)
+                eventHandler(event, currentBlocknumber)
             }
         )
-        .on('changed', changed => console.log(changed))
-        .on('error', err => console.log(err))
-        .on('connected', str => console.log(str))
+        .on('changed', changed => logger.info(changed))
+        .on('error', err => logger.info(err))
+        .on('connected', str => logger.info("Connected to ethereum node provider!!!"))
 }

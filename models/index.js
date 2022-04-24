@@ -1,10 +1,10 @@
 const dbConfig = require('../configuration/db.js');
+const logger = require('../configuration/logger')
 
 const {
     Sequelize,
     DataTypes
 } = require('sequelize');
-
 
 const Event = require('./event')
 
@@ -25,12 +25,14 @@ const sequelize = new Sequelize(
     }
 )
 
+sequelize.options.logging = false
+
 sequelize.authenticate()
     .then(() => {
-        console.log('connected..')
+        logger.info('DB connection initialized.')
     })
     .catch(err => {
-        console.log('Error' + err)
+        logger.info('DB connection initialized failed' + err)
     })
 
 const db = {}
@@ -45,7 +47,7 @@ db.sequelize.sync({
         force: false
     })
     .then(async () => {
-        console.log('yes re-sync done!')
+        logger.info('No DB resync done.')
     })
 
 

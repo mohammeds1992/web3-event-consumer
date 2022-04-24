@@ -1,17 +1,11 @@
 const express = require('express')
-
 const middleware = require('./middlewares')
-
 const createError = require('http-errors')
-
 const routes = require('./routes')
-
 const app = express();
-
 const logger = require('./configuration/logger')
 
 middleware(app)
-
 routes(app)
 
 app.use((req, res, next) => {

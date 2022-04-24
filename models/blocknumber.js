@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
             primaryKey: true
         },
-        currentBlockNumber: {
+        currentBlocknumber: {
             type: DataTypes.BIGINT,
             allowNull: false,
         }
