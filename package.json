@@ -4,7 +4,7 @@
   "description": "This is Web3 project which consumes Addition events from a simple Smart Contract.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha",
     "start": "nodemon index.js"
   },
   "repository": {
@@ -30,10 +30,13 @@
   "homepage": "https://github.com/mohammeds1992/web3-event-consumer#readme",
   "dependencies": {
     "@hapi/joi": "^17.1.1",
+    "chai": "^4.3.6",
+    "chai-http": "^4.3.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "http-errors": "^2.0.0",
+    "mocha": "^9.2.2",
     "morgan": "^1.10.0",
     "mysql2": "^2.3.3",
     "sequelize": "^6.19.0",

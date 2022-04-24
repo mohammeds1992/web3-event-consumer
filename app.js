@@ -9,7 +9,16 @@ middleware(app)
 routes(app)
 
 app.use((req, res, next) => {
-    res.redirect('http://' + process.env.HOST + '/v1/events')
+    let url = 'http://' + process.env.HOST + '/v1/events'
+    res.setHeader("Content-Type", "text/html")
+    res.send(`
+             <html>
+                <body>
+                    <h1>Please click on this <a href=${url}>link</a> to fetch events.
+                    </h1>
+                </body>
+            </html>
+            `)
 })
 
 app.use(
