@@ -78,8 +78,8 @@ Here is the API [URL](http://web3eventconsumer-env.eba-ccsbb3xk.eu-west-3.elasti
 
 The node application is hosted on AWS. I leveraged AWS Code Pipeline, which has integrated with this repository on the Github. Upon every push to the master branch, the code gets deployed to AWS Elasticbean Stalk via AWS Code Pipeline.
 
-Below are some of the screenshots
-![AWS Code Pipeline Architecture](https://www.linkpicture.com/q/Screenshot-2022-04-25-at-12.20.40-PM.png)
+Below are is AWS code pipeline screenshot
+
 ![AWS Code Pipeline](https://www.linkpicture.com/q/Screenshot-2022-04-25-at-12.24.02-PM.png)
 
 
