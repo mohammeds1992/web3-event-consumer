@@ -82,6 +82,8 @@ Below is AWS code pipeline screenshot
 
 ![AWS Code Pipeline](https://www.linkpicture.com/q/Screenshot-2022-04-25-at-12.24.02-PM.png)
 
+The environment variables are injected at runtime via AWS Elasticbean Stalk configuration.
+
 
 ## Future Scope
 
